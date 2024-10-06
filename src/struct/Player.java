@@ -9,7 +9,7 @@ public class Player {
     private Scanner in = new Scanner(System.in);
 
     //variables
-    private int x;
+    protected int x;
     private int y;
 
     public Player(String name,char symbol,Board board){
@@ -66,8 +66,77 @@ public class Player {
         return x;
     }
 
+    //avaible pos
+    public int availablePos(int[] occupiedPos){
+        List<Integer> availablePos = new ArrayList<>();
+        for (int i=0;i<8;i++){
+            availablePos.add(i);
+        }
+
+        for (int occupied : occupiedPos){
+            availablePos.remove(Integer.valueOf(occupied));
+        }
+
+        Random random  = new Random();
+
+        return random.nextInt(availablePos.size());
+    }
+
+
+
+    public int difCPUPos(String indexOccupied){
+        int numberOccupied;
+        if(indexOccupied.isEmpty()){
+            numberOccupied = -1;
+        } else{
+            numberOccupied = Integer.parseInt(indexOccupied);
+        }
+        List<Integer> occupiedPos = new ArrayList<>();
+        occupiedPos.add(numberOccupied);
+
+        // y = availablePos(i)
+        // if(i==0 && j==0){
+        //     occupiedPos.add(0);
+        // }
+        // if(i==0 && j==1){
+        //     occupiedPos.add(1);
+        // }
+        // if(i==0 && j==2){
+        //     occupiedPos.add(2);
+        // }
+        // if(i==1 && j==0){
+        //     occupiedPos.add(3);
+        // }
+        // if(i==1 && j==1){
+        //     occupiedPos.add(4);
+        // }
+        // if(i==1 && j==2){
+        //     occupiedPos.add(5);
+        // }
+        // if(i==2 && j==0){
+        //     occupiedPos.add(6);
+        // }
+        // if(i==2 && j==1){
+        //     occupiedPos.add(7);
+        // }
+        // if(i==2 && j==2){
+        //     occupiedPos.add(8);
+        // }
+
+        int[] copyOfList = new int[occupiedPos.size()];
+        for (int o=0;o<occupiedPos.size();o++){
+            copyOfList[o] = occupiedPos.get(o);
+        }
+
+        y=availablePos(copyOfList);
+
+        return y;
+    }
+
     //working with bits for AI input
     public int AiInput(){
+        
+
         Random random = new Random();
         y=random.nextInt(8);
 

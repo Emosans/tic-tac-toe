@@ -42,15 +42,19 @@ public class Board{
         }
         if((player2BoardInfo & movebit) !=0){
             System.out.println("pos taken");
+            
             return false;
         }
 
+        // index positions for Player
         if(player.getSymbol() == 'X'){
             player1BoardInfo |= movebit;
             copyOfPlayerBoard = player1BoardInfo;
             binaryForm = Integer.toBinaryString(copyOfPlayerBoard);
             formattedStringForPlayer1 = String.format("%9s",binaryForm ).replace(' ', '0');
         }
+
+        // index positions for CPU
         if(player.getSymbol() == 'O'){
             player2BoardInfo |= movebit;
             copyOfPlayerBoard = player2BoardInfo;
@@ -107,7 +111,7 @@ public class Board{
 
         // compare the bit string for player1boardinfo with winning
         for(int winMask : WINNING_COMBINATIONS){
-            if((player1BoardInfo & winMask)==winMask){
+            if(((player1BoardInfo & winMask) ==winMask) || ((player2BoardInfo & winMask) == winMask)){
                 return true;
             }
         }
