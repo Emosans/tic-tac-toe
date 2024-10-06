@@ -49,11 +49,11 @@ public class Game {
             if(currentPlayer == player2){
                 pos = player2.AiInput();
                 System.out.println("Player2 wants to occupy index pos "+pos);
-                board.makeMoveWithBitsFoAI(pos, currentPlayer);            
+                board.makeMoveWithBitsForPlayer(pos, currentPlayer);            
             }
             
-            System.out.println("positions occupied by player 1 "+board.formattedString); //binary form lsb is 0 ,msb is 8
-            System.out.println("positions occupied by player 2 "+board.formattedString);
+            System.out.println("positions occupied by player 1 "+board.formattedStringForPlayer1); //binary form lsb is 0 ,msb is 8
+            System.out.println("positions occupied by player 2 "+board.formattedStringForPlayer2);
             
             currentPlayer = (currentPlayer == player1) ? player2 : player1;
             

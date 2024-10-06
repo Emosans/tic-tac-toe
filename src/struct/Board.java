@@ -4,7 +4,8 @@ public class Board{
     protected  char[][] grid;
     protected int player1BoardInfo = 0;
     protected int player2BoardInfo = 0;
-    protected String formattedString;
+    protected String formattedStringForPlayer1;
+    protected String formattedStringForPlayer2;
 
     //winning combinations
     private static final int[] WINNING_COMBINATIONS = {
@@ -39,50 +40,23 @@ public class Board{
             System.out.println("pos taken");
             return false;
         }
-
-        player1BoardInfo |= movebit;
-        copyOfPlayerBoard = player1BoardInfo;
-
-        // make the index symbol X
-        if(pos==0){
-            grid[0][0] = symbol;
-        } if(pos==1){
-            grid[0][1] = symbol;
-        } if(pos==2){
-            grid[0][2] = symbol;
-        } if(pos==3){
-            grid[1][0] = symbol;
-        } if(pos==4){
-            grid[1][1] = symbol;
-        } if(pos==5){
-            grid[1][2] = symbol;
-        } if(pos==6){
-            grid[2][0] = symbol;
-        } if(pos==7){
-            grid[2][1] = symbol;
-        } if(pos==8){
-            grid[2][2] = symbol;
-        } 
-
-        binaryForm = Integer.toBinaryString(copyOfPlayerBoard);
-        formattedString = String.format("%8s",binaryForm ).replace(' ', '0');
-        return true;
-    }
-
-    public boolean makeMoveWithBitsFoAI(int pos,Player player){
-        char symbol = player.getSymbol();
-        int copyOfPlayerBoard;
-        String binaryForm;
-
-        int movebit = 1 << pos;
-
         if((player2BoardInfo & movebit) !=0){
             System.out.println("pos taken");
             return false;
         }
 
-        player2BoardInfo |= movebit;
-        copyOfPlayerBoard = player1BoardInfo;
+        if(player.getSymbol() == 'X'){
+            player1BoardInfo |= movebit;
+            copyOfPlayerBoard = player1BoardInfo;
+            binaryForm = Integer.toBinaryString(copyOfPlayerBoard);
+            formattedStringForPlayer1 = String.format("%9s",binaryForm ).replace(' ', '0');
+        }
+        if(player.getSymbol() == 'O'){
+            player2BoardInfo |= movebit;
+            copyOfPlayerBoard = player2BoardInfo;
+            binaryForm = Integer.toBinaryString(copyOfPlayerBoard);
+            formattedStringForPlayer2 = String.format("%9s", binaryForm).replace(' ', '0');
+        }
 
         // make the index symbol X
         if(pos==0){
@@ -105,8 +79,6 @@ public class Board{
             grid[2][2] = symbol;
         } 
 
-        binaryForm = Integer.toBinaryString(copyOfPlayerBoard);
-        formattedString = String.format("%8s",binaryForm ).replace(' ', '0');
         return true;
     }
 
